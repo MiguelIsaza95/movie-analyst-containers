@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: movie-analyst-api
+  namespace: default
+  labels:
+    app: movie-analyst-api
+spec:
+  replicas: 3
+  minReadySeconds: 45
+  selector:
+    matchLabels:
+      app: movie-analyst-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: movie-analyst-api
+    spec:
+      containers:
+        - image: ecr_repo/movie-analyst-api:0.0.1
+          imagePullPolicy: IfNotPresent
+          name: movie-analyst-api
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

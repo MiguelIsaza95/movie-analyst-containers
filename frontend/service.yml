@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metada:
+  labels: #PODS
+    apps: movie-analyst-ui
+  name: movie-analyst-ui
+  namespace: default
+spec:
+  ports:
+    - port: 3030
+      protocol: TCP
+      targetPort: 3030
+  selector:
+    app: movie-analyst-ui
+  sessionAffinity: None
+  type: NodePort

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metada:
+  labels: #PODS
+    apps: movie-analyst-db
+  name: movie-analyst-db
+  namespace: default
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: movie-analyst-db
+  sessionAffinity: None
+  type: ClusterIP
