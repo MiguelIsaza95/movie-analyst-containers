@@ -25,5 +25,11 @@ spec:
         - image: ecr_repo/movie-analyst-ui:0.0.1
           imagePullPolicy: IfNotPresent
           name: movie-analyst-ui
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: 512Mi
+            requests:
+              memory: 512Mi
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

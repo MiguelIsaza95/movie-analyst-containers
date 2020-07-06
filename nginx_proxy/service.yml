@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Service
 metada:
   labels: #PODS
-    apps: movie-analyst-ui
-  name: movie-analyst-ui
+    apps: movie-analyst-proxy
+  name: movie-analyst-proxy
   namespace: default
 spec:
   ports:
-    - port: 3030
+    - port: 80
       protocol: TCP
-      targetPort: 3030
+      targetPort: 80
   selector:
-    app: movie-analyst-ui
+    app: movie-analyst-proxy
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer

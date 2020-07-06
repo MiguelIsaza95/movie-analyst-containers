@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: movie-analyst-api
+  name: movie-analyst-proxy
   namespace: default
   labels:
-    app: movie-analyst-api
+    app: movie-analyst-proxy
 spec:
   replicas: 3
   minReadySeconds: 45
   selector:
     matchLabels:
-      app: movie-analyst-api
+      app: movie-analyst-proxy
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,15 +19,15 @@ spec:
   template:
     metadata:
       labels:
-        app: movie-analyst-api
+        app: movie-analyst-proxy
     spec:
       containers:
-        - image: ecr_repo/movie-analyst-api:0.0.1
+        - image: miguelisaza95/movie-analyst-proxy:0.0.1
           imagePullPolicy: IfNotPresent
-          name: movie-analyst-api
+          name: movie-analyst-proxy
           resources:
             limits:
-              cpu: "0.5"
+              cpu: "1"
               memory: 512Mi
             requests:
               memory: 512Mi
