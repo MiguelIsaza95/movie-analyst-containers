@@ -15,3 +15,5 @@ data "aws_ami" "ubuntu_18_latest" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   }
 }
+
+data "aws_caller_identity" "current" {}

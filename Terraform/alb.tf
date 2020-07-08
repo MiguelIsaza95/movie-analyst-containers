@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "ecs_target" {
     timeout             = 120
     healthy_threshold   = 5
     unhealthy_threshold = 3
-    matcher = "200"
+    matcher             = "200"
   }
 }
 

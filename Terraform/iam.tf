@@ -24,7 +24,7 @@ resource "aws_iam_instance_profile" "cluster" {
 ## ECS role to create services
 resource "aws_iam_role" "cluster_service_role" {
   description        = "cluster-service-role"
-  path = "/ecs/service"
+  path               = "/ecs/service"
   assume_role_policy = file("${path.module}/policies/cluster_service_role.json")
 }
 
@@ -42,7 +42,7 @@ resource "aws_iam_policy_attachment" "cluster_service_policy_attachment" {
 ## ECS role to manage tasks
 resource "aws_iam_role" "cluster_task_role" {
   description        = "cluster-task-role"
-  path = "/ecs/task"
+  path               = "/ecs/task"
   assume_role_policy = file("${path.module}/policies/cluster-task-role.json")
 }
 
@@ -60,8 +60,8 @@ resource "aws_iam_policy_attachment" "cluster_task_policy_attachment" {
 
 ## ECS role to manage s3 buckets
 resource "aws_iam_role" "ecs_task_role" {
-  name = "role-name-task"
-  path = "/ecs/s3"
+  name               = "role-name-task"
+  path               = "/ecs/s3"
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
