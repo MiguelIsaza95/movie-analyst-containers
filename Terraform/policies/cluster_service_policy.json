@@ -4,13 +4,13 @@
       {
         "Effect": "Allow",
         "Action": [
-          "elasticloadbalancing:Describe*",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:Describe*",
           "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
           "elasticloadbalancing:DeregisterTargets",
+          "elasticloadbalancing:Describe*",
           "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
-          "elasticloadbalancing:RegisterTargets",
-          "ec2:Describe*",
-          "ec2:AuthorizeSecurityGroupIngress"
+          "elasticloadbalancing:RegisterTargets"
         ],
         "Resource": "*"
       }

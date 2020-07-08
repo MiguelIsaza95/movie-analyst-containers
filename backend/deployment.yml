@@ -22,14 +22,17 @@ spec:
         app: movie-analyst-api
     spec:
       containers:
-        - image: ecr_repo/movie-analyst-api:0.0.1
+        - image: miguelisaza95/movie-analyst-api:0.0.5
           imagePullPolicy: IfNotPresent
           name: movie-analyst-api
+          ports:
+            - containerPort: 3000
           resources:
-            limits:
-              cpu: "0.5"
-              memory: 512Mi
             requests:
-              memory: 512Mi
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 125m
+              memory: 120Mi
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

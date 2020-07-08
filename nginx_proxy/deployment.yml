@@ -25,11 +25,14 @@ spec:
         - image: miguelisaza95/movie-analyst-proxy:0.0.1
           imagePullPolicy: IfNotPresent
           name: movie-analyst-proxy
+          ports:
+            - containerPort: 80
           resources:
-            limits:
-              cpu: "1"
-              memory: 512Mi
             requests:
-              memory: 512Mi
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 125m
+              memory: 120Mi
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

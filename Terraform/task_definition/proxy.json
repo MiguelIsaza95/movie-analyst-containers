@@ -1,28 +1,22 @@
-[
+{
+  "containerDefinitions": [
     {
-      "name": "proxy",
+      "name": "movie-analyst-proxy",
       "image": "miguelisaza95/movie-analyst-proxy:0.0.1",
-      "cpu": 10,
-      "memory": 512,
+      "memory": "1024",
+      "cpu": "256",
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 80,
-          "hostPort": 80
-        }
-      ]
-    },
-    {
-      "name": "second",
-      "image": "service-second",
-      "cpu": 10,
-      "memory": 256,
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 443,
-          "hostPort": 443
+          "containerPort": "80",
+          "hostPort": "80",
+          "protocol": "tcp"
         }
       ]
     }
-  ]
+  ],
+  "volumes": [],
+  "networkMode": "awsvpc",
+  "placementConstraints": [],
+  "family": "application-stack"
+}

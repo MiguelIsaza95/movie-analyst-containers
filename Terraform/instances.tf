@@ -51,20 +51,16 @@ resource "aws_instance" "jenkins" {
 }
 
 resource "aws_launch_template" "cluster_conf" {
-  depends_on = [
-    aws_instance.jenkins,
-    aws_autoscaling_group.ui
-  ]
   monitoring {
     enabled = true
   }
-  name_prefix            = "cluster_server_config"
-  image_id               = data.aws_ami.ubuntu_18_latest.id
-  instance_type          = var.instance_type
-  key_name               = var.key_name
+  name_prefix   = "cluster_server_config"
+  image_id      = data.aws_ami.ubuntu_18_latest.id
+  instance_type = var.instance_type
+  key_name      = var.key_name
   iam_instance_profile {
     name = aws_iam_instance_profile.cluster.name
-    arn = aws_iam_instance_profile.cluster.arn
+    arn  = aws_iam_instance_profile.cluster.arn
   }
   vpc_security_group_ids = [aws_security_group.cluster_sg.id, aws_security_group.general_sg.id]
   tag_specifications {

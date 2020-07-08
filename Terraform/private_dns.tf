@@ -6,30 +6,6 @@ resource "aws_route53_zone" "private" {
   }
 }
 
-resource "aws_route53_record" "front" {
-  zone_id = aws_route53_zone.private.zone_id
-  name    = "front"
-  type    = "A"
-
-  alias {
-    name                   = aws_elb.elb_frontend.dns_name
-    zone_id                = aws_elb.elb_frontend.zone_id
-    evaluate_target_health = true
-  }
-}
-
-resource "aws_route53_record" "back" {
-  zone_id = aws_route53_zone.private.zone_id
-  name    = "back"
-  type    = "A"
-
-  alias {
-    name                   = aws_elb.elb_backend.dns_name
-    zone_id                = aws_elb.elb_backend.zone_id
-    evaluate_target_health = true
-  }
-}
-
 resource "aws_route53_record" "db" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "db"
