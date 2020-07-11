@@ -1,4 +1,4 @@
-resource "aws_ecs_service" "proxy-ecs-service" {
+resource "aws_ecs_service" "proxy_ecs_service" {
   name            = "Movie service"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id
@@ -18,7 +18,7 @@ resource "aws_ecs_service" "proxy-ecs-service" {
   }
 }
 
-resource "aws_ecs_service" "ui-ecs-service" {
+resource "aws_ecs_service" "ui_ecs_service" {
   name            = "Movie service"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id
@@ -32,7 +32,7 @@ resource "aws_ecs_service" "ui-ecs-service" {
   }
 }
 
-resource "aws_ecs_service" "api-ecs-service" {
+resource "aws_ecs_service" "api_ecs_service" {
   name            = "Movie service"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id

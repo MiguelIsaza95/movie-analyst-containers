@@ -19,21 +19,3 @@ resource "aws_autoscaling_group" "cluster" {
     create_before_destroy = true
   }
 }
-
-resource "aws_autoscaling_policy" "cluster_policy_up" {
-  name                   = "cluster-scale-up"
-  scaling_adjustment     = 2
-  adjustment_type        = "ChangeInCapacity"
-  policy_type            = "SimpleScaling"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.cluster.name
-}
-
-resource "aws_autoscaling_policy" "cluster_policy_down" {
-  name                   = "cluster-scale-down"
-  scaling_adjustment     = -2
-  adjustment_type        = "ChangeInCapacity"
-  policy_type            = "SimpleScaling"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.cluster.name
-}

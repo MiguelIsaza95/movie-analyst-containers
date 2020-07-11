@@ -1,27 +1,141 @@
 resource "aws_appautoscaling_target" "proxy" {
-  max_capacity       = 4
-  min_capacity       = 1
-  resource_id        = "service/${aws_ecs_cluster.movieanalyst.name}/${aws_ecs_service.proxy-ecs-service.name}"
-#  role_arn = format("arn:aws:iam::%s:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
-#    data.aws_caller_identity.current.account_id)
+  depends_on   = [aws_appautoscaling_target.ui]
+  max_capacity = 5
+  min_capacity = 1
+  resource_id  = "service/${aws_aws_ecs_cluster.cluster_name}/proxy"
+  role_arn = format("arn:aws:iam::%s:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
+  data.aws_caller_identity.current.account_id)
+
   scalable_dimension = "ecs:service:DesiredCount"
-  service_namespace  = "ecs"
+  service_namespace  = "ecs_proxy"
 }
 
-resource "aws_autoscaling_policy" "cluster_policy_up" {
-  name                   = "cluster-scale-up"
-  scaling_adjustment     = 2
-  adjustment_type        = "ChangeInCapacity"
-  policy_type            = "SimpleScaling"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.cluster.name
+resource "aws_appautoscaling_policy" "proxy_policy_up" {
+  name               = "proxy-scale-up"
+  resource_id        = aws_appautoscaling_target.proxy.resource_id
+  scalable_dimension = aws_appautoscaling_target.proxy.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.proxy.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_lower_bound = 1.0
+    scaling_adjustment          = 1
+  }
 }
 
-resource "aws_autoscaling_policy" "cluster_policy_down" {
-  name                   = "cluster-scale-down"
-  scaling_adjustment     = -2
-  adjustment_type        = "ChangeInCapacity"
-  policy_type            = "SimpleScaling"
-  cooldown               = 300
-  autoscaling_group_name = aws_autoscaling_group.cluster.name
+resource "aws_appautoscaling_policy" "proxy_policy_down" {
+  name               = "proxy-scale-up"
+  resource_id        = aws_appautoscaling_target.proxy.resource_id
+  scalable_dimension = aws_appautoscaling_target.proxy.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.proxy.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_upper_bound = 0
+    scaling_adjustment          = -1
+  }
+}
+
+resource "aws_appautoscaling_target" "ui" {
+  max_capacity = 5
+  min_capacity = 1
+  resource_id  = "service/${aws_aws_ecs_cluster.cluster_name}/ui"
+  role_arn = format("arn:aws:iam::%s:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
+  data.aws_caller_identity.current.account_id)
+
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs_ui"
+}
+
+resource "aws_appautoscaling_policy" "ui_policy_up" {
+  name               = "ui-scale-up"
+  resource_id        = aws_appautoscaling_target.ui.resource_id
+  scalable_dimension = aws_appautoscaling_target.ui.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ui.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_lower_bound = 1.0
+    scaling_adjustment          = 1
+  }
+}
+
+resource "aws_appautoscaling_policy" "ui_policy_down" {
+  name               = "ui-scale-up"
+  resource_id        = aws_appautoscaling_target.ui.resource_id
+  scalable_dimension = aws_appautoscaling_target.ui.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ui.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_upper_bound = 0
+    scaling_adjustment          = -1
+  }
+}
+
+resource "aws_appautoscaling_target" "api" {
+  max_capacity = 5
+  min_capacity = 1
+  resource_id  = "service/${aws_aws_ecs_cluster.cluster_name}/api"
+  role_arn = format("arn:aws:iam::%s:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
+  data.aws_caller_identity.current.account_id)
+
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs_api"
+}
+
+resource "aws_appautoscaling_policy" "api_policy_up" {
+  name               = "api-scale-up"
+  resource_id        = aws_appautoscaling_target.api.resource_id
+  scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_lower_bound = 1.0
+    scaling_adjustment          = 1
+  }
+}
+
+resource "aws_appautoscaling_policy" "api_policy_down" {
+  name               = "api-scale-up"
+  resource_id        = aws_appautoscaling_target.api.resource_id
+  scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api.service_namespace
+
+  step_scaling_policy_configuration {
+    adjusment_type          = "ChangeInCapacity"
+    cool_down               = 60
+    metric_aggregation_type = "Average"
+  }
+
+  step_adjustment {
+    metric_interval_upper_bound = 0
+    scaling_adjustment          = -1
+  }
 }

@@ -1,4 +1,4 @@
 /vols_docker/*
-/terraform.tfstate
-/terraform.tfstate.backup
-/.terraform/*
+/Terraform/terraform.tfstate
+/Terraform/terraform.tfstate.backup
+/Terraform/.terraform/*
