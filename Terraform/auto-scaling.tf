@@ -8,8 +8,8 @@ resource "aws_autoscaling_group" "cluster" {
   termination_policies      = ["Default"]
   enabled_metrics           = var.enabled_metrics
   protect_from_scale_in     = false
-  target_group_arns         = [aws_alb_target_group.cluster_target.arn]
-  vpc_zone_identifier       = aws_subnet.cluster_private.*.id
+  target_group_arns         = [aws_lb_target_group.ecs_target.arn]
+  vpc_zone_identifier       = aws_subnet.clusterprivate.*.id
   launch_template {
     id      = aws_launch_template.cluster_conf.id
     version = "$Latest"

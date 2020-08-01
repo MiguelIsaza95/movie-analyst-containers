@@ -43,7 +43,7 @@ resource "aws_iam_policy_attachment" "cluster_service_policy_attachment" {
 resource "aws_iam_role" "cluster_task_role" {
   description        = "cluster-task-role"
   path               = "/ecs/task"
-  assume_role_policy = file("${path.module}/policies/cluster-task-role.json")
+  assume_role_policy = file("${path.module}/policies/cluster_task_role.json")
 }
 
 resource "aws_iam_policy" "cluster_task_policy" {
@@ -80,6 +80,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "task_s3" {
-  role       = "${aws_iam_role.ecs_task_role.name}"
+  role       = aws_iam_role.ecs_task_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }

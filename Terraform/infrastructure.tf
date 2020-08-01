@@ -26,9 +26,9 @@ resource "aws_subnet" "clusterprivate" {
   count                   = length(var.cluster_subnet_zone)
   cidr_block              = element(var.cluster_subnet_address, count.index)
   map_public_ip_on_launch = "false"
-  availability_zone       = element(var.backend_subnet_zone, count.index)
+  availability_zone       = element(var.cluster_subnet_zone, count.index)
   tags = {
-    Name = element(var.backend_subnet_zone, count.index)
+    Name = element(var.cluster_subnet_zone, count.index)
     Type = "private"
   }
 }
@@ -64,9 +64,9 @@ resource "aws_main_route_table_association" "vpc_main_route" {
   route_table_id = aws_route_table.nat_route.id
 }
 
-resource "aws_route_table_association" "cluster_private_subnet_association" {
-  count          = length(aws_subnet.cluster_private.*.id)
-  subnet_id      = element(aws_subnet.cluster_private.*.id, count.index)
+resource "aws_route_table_association" "clusterprivate_subnet_association" {
+  count          = length(aws_subnet.clusterprivate.*.id)
+  subnet_id      = element(aws_subnet.clusterprivate.*.id, count.index)
   route_table_id = aws_route_table.nat_route.id
 }
 

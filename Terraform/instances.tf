@@ -66,7 +66,7 @@ resource "aws_launch_template" "cluster_conf" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name        = "nginx_cluster"
+      Name        = "movie_cluster"
       Environment = "Test"
     }
   }
@@ -120,7 +120,7 @@ resource "aws_db_parameter_group" "default" {
 
 resource "aws_db_subnet_group" "default" {
   name       = "main"
-  subnet_ids = aws_subnet.back_private.*.id
+  subnet_ids = aws_subnet.clusterprivate.*.id
 }
 
 resource "null_resource" "db_provision" {

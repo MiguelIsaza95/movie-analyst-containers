@@ -1,5 +1,5 @@
-{
-  "family": "backend",
+[{
+  "family": "frontend",
   "taskRoleArn": "",
   "executionRoleArn": "",
   "networkMode": "awsvpc",
@@ -239,4 +239,4 @@
           "deviceType": ""
       }
   ]
-}
+}]

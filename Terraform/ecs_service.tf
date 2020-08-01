@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "proxy_ecs_service" {
-  name            = "Movie service"
+  name            = "proxy"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id
   task_definition = aws_ecs_task_definition.proxy.arn
@@ -19,7 +19,7 @@ resource "aws_ecs_service" "proxy_ecs_service" {
 }
 
 resource "aws_ecs_service" "ui_ecs_service" {
-  name            = "Movie service"
+  name            = "movieback"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id
   task_definition = aws_ecs_task_definition.ui.arn
@@ -33,7 +33,7 @@ resource "aws_ecs_service" "ui_ecs_service" {
 }
 
 resource "aws_ecs_service" "api_ecs_service" {
-  name            = "Movie service"
+  name            = "moviefront"
   iam_role        = aws_iam_role.cluster_service_role.arn
   cluster         = aws_ecs_cluster.movieanalyst.id
   task_definition = aws_ecs_task_definition.api.arn
