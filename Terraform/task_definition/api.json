@@ -10,7 +10,7 @@
           "repositoryCredentials": {
               "credentialsParameter": ""
           },
-          "cpu": 1024,
+          "cpu": 0,
           "memory": 256,
           "memoryReservation": 0,
           "links": [
