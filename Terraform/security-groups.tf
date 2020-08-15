@@ -121,18 +121,6 @@ resource "aws_security_group" "cluster_sg" {
   description = "Allow http traffic to api server"
 }
 
-resource "aws_security_group" "jenkins_sg" {
-  name   = "Jenkins rules"
-  vpc_id = aws_vpc.test.id
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  description = "Allow http traffic from clients"
-}
-
 resource "aws_security_group" "db_sg" {
   name   = "DB rules"
   vpc_id = aws_vpc.test.id
