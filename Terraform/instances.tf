@@ -33,23 +33,6 @@ resource "aws_instance" "nat" {
   source_dest_check = false
 }
 
-resource "aws_instance" "jenkins" {
-  monitoring                  = true
-  ami                         = data.aws_ami.ubuntu_18_latest.id
-  instance_type               = var.instance_type
-  key_name                    = var.key_name
-  associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.jenkins_sg.id, aws_security_group.general_sg.id]
-  subnet_id                   = element(aws_subnet.dmz_public.*.id, 2)
-  tags = {
-    Name        = "jenkins"
-    Environment = "Test"
-  }
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "aws_launch_template" "cluster_conf" {
   monitoring {
     enabled = true
@@ -129,16 +112,6 @@ resource "null_resource" "db_provision" {
     command = <<EOT
 chmod +x mysql.sh
 ${path.module}/mysql.sh
-    EOT
-  }
-}
-
-resource "null_resource" "jenkins_provision" {
-  depends_on = [aws_route53_record.jenkins]
-  provisioner "local-exec" {
-    command = <<EOT
-chmod +x jenkins.sh
-${path.module}/jenkins.sh
     EOT
   }
 }
