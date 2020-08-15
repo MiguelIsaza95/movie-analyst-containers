@@ -9,7 +9,7 @@ resource "aws_cloudwatch_metric_alarm" "proxy_cpu_high" {
   threshold           = 80
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.proxy_ecs_service.name
   }
   alarm_description = "Scale up if CPU utilization is above 80% for 300 seconds"
@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "proxy_cpu_low" {
   threshold           = 20
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.proxy_ecs_service.name
   }
   alarm_description = "Scale down if CPU utilization is above 20% for 300 seconds"
@@ -45,7 +45,7 @@ resource "aws_cloudwatch_metric_alarm" "ui_cpu_high" {
   threshold           = 80
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.ui_ecs_service.name
   }
   alarm_description = "Scale up if CPU utilization is above 80% for 300 seconds"
@@ -63,7 +63,7 @@ resource "aws_cloudwatch_metric_alarm" "ui_cpu_low" {
   threshold           = 20
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.ui_ecs_service.name
   }
   alarm_description = "Scale down if CPU utilization is above 20% for 300 seconds"
@@ -81,7 +81,7 @@ resource "aws_cloudwatch_metric_alarm" "api_cpu_high" {
   threshold           = 80
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.api_ecs_service.name
   }
   alarm_description = "Scale up if CPU utilization is above 80% for 300 seconds"
@@ -99,7 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "api_cpu_low" {
   threshold           = 20
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.movieanalyst.cluster_name
+    ClusterName = aws_ecs_cluster.movieanalyst.name
     ServiceName = aws_ecs_service.api_ecs_service.name
   }
   alarm_description = "Scale down if CPU utilization is above 20% for 300 seconds"
